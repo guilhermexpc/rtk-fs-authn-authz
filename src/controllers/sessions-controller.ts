@@ -6,7 +6,7 @@ import { sign } from "jsonwebtoken";
 
 // Mock data for user
 const fakerUser = {
-  id: 1,
+  id: "1",
   username: "onildo",
   password: "123456"
 };
