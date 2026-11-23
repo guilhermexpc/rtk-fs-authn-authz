@@ -8,7 +8,8 @@ import { sign } from "jsonwebtoken";
 const fakerUser = {
   id: "1",
   username: "onildo",
-  password: "123456"
+  password: "123456",
+  role: "admin"
 };
 
 class SessionsController {
@@ -18,9 +19,9 @@ class SessionsController {
     if (username !== fakerUser.username || password !== fakerUser.password) {
       throw new AppError("Incorrect username/password combination", 401);
     }
-
+    // Generate JWT token for authenticated user
     const { secret, expiresIn } = authConfig.jwt;
-    const token = sign({}, secret, {
+    const token = sign({ role: fakerUser.role }, secret, {
       expiresIn: expiresIn,
       subject: String(fakerUser.id)
     });

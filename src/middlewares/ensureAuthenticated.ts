@@ -3,6 +3,13 @@ import { verify } from "jsonwebtoken";
 import { AppError } from "@/utils/AppError";
 import { authConfig } from "@/configs/auth";
 
+interface TokenPayload {
+  iat: number;
+  exp: number;
+  sub: string;
+  role: string;
+}
+
 export function ensureAuthenticated(request: Request, response: Response, next: NextFunction) {
   const authHeader = request.headers.authorization || "";
 
@@ -21,12 +28,13 @@ export function ensureAuthenticated(request: Request, response: Response, next: 
   }
 
   // Verify the token using the secret from authConfig
-  const decoded = verify(token, authConfig.jwt.secret);
+  const decoded = verify(token, authConfig.jwt.secret) as TokenPayload;
   console.log(decoded);
 
   // Attach the user ID to the request object for further use in the application
   request.user = {
-    id: String(decoded.sub)
+    id: String(decoded.sub),
+    role: String(decoded.role)
   };
 
   return next();

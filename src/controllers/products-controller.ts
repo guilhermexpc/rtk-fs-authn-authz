@@ -7,7 +7,9 @@ class ProductsController {
 
   async create(request: Request, response: Response) {
     // Access the user ID from the request object
-    return response.json({ message: `Product created successfully by user ${request.user?.id}` });
+    return response.json({
+      message: `Product created successfully by user ${request.user?.id} - ${request.user?.role}`
+    });
   }
 }
 
