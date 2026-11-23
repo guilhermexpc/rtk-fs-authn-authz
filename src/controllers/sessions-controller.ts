@@ -9,7 +9,7 @@ const fakerUser = {
   id: "1",
   username: "onildo",
   password: "123456",
-  role: "sale"
+  role: "admin"
 };
 
 class SessionsController {
