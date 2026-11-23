@@ -20,9 +20,11 @@ export function ensureAuthenticated(request: Request, response: Response, next: 
     throw new AppError("Invalid authorization header", 401);
   }
 
+  // Verify the token using the secret from authConfig
   const decoded = verify(token, authConfig.jwt.secret);
   console.log(decoded);
 
+  // Attach the user ID to the request object for further use in the application
   request.user = {
     id: String(decoded.sub)
   };
