@@ -11,6 +11,7 @@ const productsController = new ProductsController();
 productsRoutes.use(ensureAuthenticated);
 
 productsRoutes.get("/", productsController.index);
+// Apply the ensureAuthenticated and verifyUserAuthorization middlewares to the create route
 productsRoutes.post("/", ensureAuthenticated, verifyUserAuthorization(["admin", "sale"]), productsController.create);
 
 export { productsRoutes };
